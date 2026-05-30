@@ -52,11 +52,9 @@ The project is based on a real estate dataset (derived from the classic Ames Hou
 ## Data Dictionary (Key Variables)
 
 <details>
-<summary>Click to expand Data Dictionary</summary>
+<summary>Numeric Variables</summary>
 
-## Numeric Variables
-
-### Continuous Variables
+## Continuous Variables
 
 **Lot and Exterior**
 
@@ -96,7 +94,7 @@ The project is based on a real estate dataset (derived from the classic Ames Hou
 * **3SsnPorch** — Three-season porch area in square feet (glass-enclosed but not winterized).
 * **ScreenPorch** — Screen porch area in square feet.
 
-### Discrete Variables
+## Discrete Variables
 
 * **MSSubClass** — The building class
   * 20 - 1-STORY WITH WOOD FRAME
@@ -130,10 +128,9 @@ The project is based on a real estate dataset (derived from the classic Ames Hou
   </details>
 
 <details>
-<summary>Click to expand Data Dictionary</summary>
-## Categorical Variables
+<summary>Categorical Variables</summary>
 
-### Quality Variables
+## Quality Variables
 
 Ex - Excellent
 Gd - Good
@@ -151,7 +148,7 @@ Po - Poor
 * **GarageQual** — Garage quality.
 * **GarageCond** — Garage condition.
 
-### Lot and Surroundings
+## Lot and Surroundings
 
 * **LotShape** — General shape of property
   * Reg - Regular
@@ -187,8 +184,7 @@ Po - Poor
   * N - Dirt/Gravel
 
 
-
-### Other Features
+## Other Features
 
 * **CentralAir** — Central air conditioning
   * Y - Yes
