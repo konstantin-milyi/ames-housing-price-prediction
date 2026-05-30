@@ -99,8 +99,8 @@ The project is based on a real estate dataset (derived from the classic Ames Hou
 ### Discrete Variables
 
 * **MSSubClass** — The building class
- * 20 - 1-STORY WITH WOOD FRAME
- * 30 - 1-STORY 1945 & OLDER
+  * 20 - 1-STORY WITH WOOD FRAME
+  * 30 - 1-STORY 1945 & OLDER
  * 40 - 1-STORY POST-1945
  * 45 - 1.5-STORY PRE-1945
  * 50 - 1.5-STORY POST-1945
