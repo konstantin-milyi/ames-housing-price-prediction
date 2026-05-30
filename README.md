@@ -127,7 +127,7 @@ The project is based on a real estate dataset (derived from the classic Ames Hou
 * **TotRmsAbvGrd** — Total rooms above grade (does not include bathrooms).
 * **Fireplaces** — Number of fireplaces.
 * **GarageCars** — Size of garage in car capacity.
-<details>
+  </details>
 
 <details>
 <summary>Click to expand Data Dictionary</summary>
