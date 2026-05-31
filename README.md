@@ -12,44 +12,7 @@ The project is based on a real estate dataset (derived from the classic Ames Hou
 * **Quantitative Variables**: First and second-floor square footage, total lot area, garage size, and the age of the building.
 * **Categorical Variables**: Nominal (neighborhood, foundation type) and ordinal (finish quality, exterior condition).
 
----
-
-## Workflow Steps
-
-### 1. Exploratory Data Analysis (EDA)
-* **Target Variable:** The mean is $180k, the median is $163k. The distribution was right-skewed due to luxury properties (skewness: 1.88). After log transformation, the distribution became almost perfectly symmetric (skewness: 0.12).
-* **Outlier Removal:** Removed extreme outliers (`GrLivArea < 4000`), following the official recommendation from the dataset creator, Prof. Dean De Cock, as these represent anomalous non-market transactions.
-
-### 2. Feature Engineering & Selection
-* **Statistical Selection:** Used Mutual Information and ANOVA to evaluate the predictive power of features.
-* **Handling Missing Values:** Missing values typically indicated the physical absence of a feature (e.g., no garage or pool). Imputed with zeros for numerical features, or a 'Missing' category for categorical ones. Contextual imputation (Neighborhood medians) was used for `LotFrontage`.
-* **New Features Created:** * `TotalSF`: Total Square Footage (living area + basement).
-  * `SF_per_Room`: Average square footage per room.
-  * `SinceRemod`: Years elapsed from construction/remodel until sale.
-* **Neighborhood Clustering:** Grouped similar locations into broader market clusters: `Townhouse` (high-density), `Historic` (university zones), and `Suburban` (spacious lots).
-
-### 3. Pipeline & Encoding
-* **Ordinal Variables:** Merged rare categories with their closest logical neighbors. Applied manual ordinal encoding based on logical hierarchy (e.g., Po < Fa < TA < Gd < Ex).
-* **Nominal Variables:** Rare categories (< 3%) were collapsed into a single 'Rare' group. Applied target-based encoding (`CatBoostEncoder`).
-* **Multicollinearity:** Used `SmartCorrelatedSelection` to remove highly correlated features (coefficient > 0.8), keeping those that optimized the baseline Random Forest score.
-
-### 4. Modeling & Final Results
-* **Models Tested:** Transitioned from baseline algorithms to Gradient Boosting ensemble methods (GBM, XGBoost, LightGBM).
-* **Performance Metrics:** Transitioning to gradient boosting yielded an immediate performance boost, with the average error (RMSE) dropping by $4k–$5k.
-
-| Model | RMSE ($) | R² Score |
-| :--- | :---: | :---: |
-| **LightGBM** | `21,500` | `0.912` |
-| **XGBoost** | `22,100` | `0.905` |
-| **Gradient Boosting** | `23,000` | `0.891` |
-| *Random Forest (Baseline)* | *27,500* | *0.850* |
-
-* **Feature Importance:** The most critical features for pricing were the engineered `TotalSF`, `OverallQual`, and `Neighborhood`.
-* **Error Analysis:** Scatter plot analysis revealed that the model systematically underestimates extremely expensive houses (>$400k), attempting to average them with their less expensive neighbors.
-
----
-
-## Data Dictionary (Key Variables)
+### Data Dictionary (Key Variables)
 
 <details>
 <summary>Numeric Variables</summary>
@@ -230,3 +193,38 @@ Po - Poor
   * Maj2 - Major Deductions 2
   * Sev - Severely Damaged
 </details>
+
+---
+
+## Workflow Steps
+
+### 1. Exploratory Data Analysis (EDA)
+* **Target Variable:** The mean is $180k, the median is $163k. The distribution was right-skewed due to luxury properties (skewness: 1.88). After log transformation, the distribution became almost perfectly symmetric (skewness: 0.12).
+* **Outlier Removal:** Removed extreme outliers (`GrLivArea < 4000`), following the official recommendation from the dataset creator, Prof. Dean De Cock, as these represent anomalous non-market transactions.
+
+### 2. Feature Engineering & Selection
+* **Statistical Selection:** Used Mutual Information and ANOVA to evaluate the predictive power of features.
+* **Handling Missing Values:** Missing values typically indicated the physical absence of a feature (e.g., no garage or pool). Imputed with zeros for numerical features, or a 'Missing' category for categorical ones. Contextual imputation (Neighborhood medians) was used for `LotFrontage`.
+* **New Features Created:** * `TotalSF`: Total Square Footage (living area + basement).
+  * `SF_per_Room`: Average square footage per room.
+  * `SinceRemod`: Years elapsed from construction/remodel until sale.
+* **Neighborhood Clustering:** Grouped similar locations into broader market clusters: `Townhouse` (high-density), `Historic` (university zones), and `Suburban` (spacious lots).
+
+### 3. Pipeline & Encoding
+* **Ordinal Variables:** Merged rare categories with their closest logical neighbors. Applied manual ordinal encoding based on logical hierarchy (e.g., Po < Fa < TA < Gd < Ex).
+* **Nominal Variables:** Rare categories (< 3%) were collapsed into a single 'Rare' group. Applied target-based encoding (`CatBoostEncoder`).
+* **Multicollinearity:** Used `SmartCorrelatedSelection` to remove highly correlated features (coefficient > 0.8), keeping those that optimized the baseline Random Forest score.
+
+### 4. Modeling & Final Results
+2. Model Evolution
+* The baseline `Random Forest` provided a solid starting point but revealed weaknesses in evaluating luxury real estate.
+* Transitioning to gradient boosting models successfully resolved this issue.
+* The best performance was achieved using a combination of `CatBoost` + SFS (Sequential Feature Selector).
+* The final model was trained on 25 out of the 51 features processed by the pipeline, achieving test metrics of **R2 = 0.926** and **RMSE = $20,531**.
+<img width="1489" height="490" alt="importances" src="https://github.com/user-attachments/assets/18bc1ed4-3db2-4db8-b67e-0487ab56d72f" />
+
+### 5. Error Analysis
+* Error analysis demonstrated that while the algorithm perfectly learned the market's mathematical patterns, it struggled with a lack of physical context.
+* The engineered `TotalSF` feature proved to be too "coarse". It aggregated finished living areas, unfinished spaces, and basements into a single metric, causing the model to significantly overestimate certain properties.
+* Partial sale conditions (incomplete construction) — in these transactions, the price is often locked in at the foundation stage. Consequently, when evaluating secondary market prices, these properties sometimes do not accurately reflect true market value.
+<img width="1590" height="590" alt="errors" src="https://github.com/user-attachments/assets/a6a32a4c-2396-41a1-9d75-e2b873c1a692" />
