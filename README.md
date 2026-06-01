@@ -15,7 +15,7 @@ The project is based on a real estate dataset (derived from the classic Ames Hou
 ### Data Dictionary (Key Variables)
 
 <details>
-<summary>Numeric Variables</summary>
+<summary>Numeric Variables: First and second-floor square footage, total lot area, garage size, and the age of the building.</summary>
 
 ## Continuous Variables
 
