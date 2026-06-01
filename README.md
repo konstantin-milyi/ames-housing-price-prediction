@@ -11,7 +11,7 @@ Implementing such algorithms automates the property valuation process, minimizes
 The project is based on a real estate dataset (derived from the classic Ames Housing dataset). It contains detailed information about each property, which can be divided into two main groups:
 
 <details>
-<summary>**Numeric Variables**: First and second-floor square footage, total lot area, garage size, and the age of the building.</summary>
+<summary>Numeric Variables: First and second-floor square footage, total lot area, garage size, and the age of the building.</summary>
 
 ## Continuous Variables
 
@@ -87,7 +87,7 @@ The project is based on a real estate dataset (derived from the classic Ames Hou
   </details>
 
 <details>
-<summary>**Categorical Variables**: Nominal (neighborhood, foundation type) and ordinal (finish quality, exterior condition).</summary>
+<summary>Categorical Variables: Nominal (neighborhood, foundation type) and ordinal (finish quality, exterior condition).</summary>
 
 ## Quality Variables
 
