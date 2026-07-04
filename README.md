@@ -1,6 +1,6 @@
 # Housing Price Prediction 
 
-![Uploading ames_houses_2.png…]()
+![hrp](png/ames_houses_2.png)
 
 **Project Objective** — To develop a predictive model for accurately forecasting the final house price (target variable — `SalePrice`).
 
@@ -219,10 +219,10 @@ Po - Poor
 * Transitioning to gradient boosting models successfully resolved this issue.
 * The best performance was achieved using a combination of `CatBoost` + SFS (Sequential Feature Selector).
 * The final model was trained on 25 out of the 51 features processed by the pipeline, achieving test metrics of **R2 = 0.926** and **RMSE = $20,531**.
-<img width="1489" height="490" alt="importances" src="https://github.com/user-attachments/assets/18bc1ed4-3db2-4db8-b67e-0487ab56d72f" />
+![hrp](png/my_plot.png)
 
 ### 5. Error Analysis
 * Error analysis demonstrated that while the algorithm perfectly learned the market's mathematical patterns, it struggled with a lack of physical context.
 * The engineered `TotalSF` feature proved to be too "coarse". It aggregated finished living areas, unfinished spaces, and basements into a single metric, causing the model to significantly overestimate certain properties.
 * Partial sale conditions (incomplete construction) — in these transactions, the price is often locked in at the foundation stage. Consequently, when evaluating secondary market prices, these properties sometimes do not accurately reflect true market value.
-<img width="1590" height="590" alt="errors" src="https://github.com/user-attachments/assets/a6a32a4c-2396-41a1-9d75-e2b873c1a692" />
+![hrp](png/my_plot_2.png)
