@@ -1,5 +1,7 @@
 # Housing Price Prediction 
 
+![Uploading ames_houses_2.png…]()
+
 **Project Objective** — To develop a predictive model for accurately forecasting the final house price (target variable — `SalePrice`).
 
 ## Practical Value
